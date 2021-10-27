@@ -11,6 +11,11 @@ public class LoadDatabase {
 
   private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
+  /**
+   * Initialize the database.
+   * @param repository
+   * @return
+   */
   // Spring Boot will run all CommandLineRunner beans once application starts
   @Bean
   CommandLineRunner initDatabase(EmployeeRepository repository) {

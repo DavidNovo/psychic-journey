@@ -1,4 +1,4 @@
-package net.novogrodsky.demo.exceptions;
+package net.novogrodsky.demo.exception;
 
 /**
  * Represent an exception that occurs during runtime.

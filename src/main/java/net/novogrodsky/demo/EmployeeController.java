@@ -1,7 +1,7 @@
 package net.novogrodsky.demo;
 
 import java.util.List;
-import net.novogrodsky.demo.exceptions.EmployeeNotFoundException;
+import net.novogrodsky.demo.exception.EmployeeNotFoundException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
