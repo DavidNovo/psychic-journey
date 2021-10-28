@@ -27,3 +27,7 @@ hs_err_pid*
 
 # Directory for IntelliJ settings #
 .idea
+
+mvnw
+
+mvnw.cmd
