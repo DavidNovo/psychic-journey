@@ -46,7 +46,7 @@ public class EmployeeController {
     // original version was repository.findAll()
     List<EntityModel<Employee>> employees =
         repository.findAll().stream().map(employee -> EntityModel.of(employee,
-            linkTo(methodOn(EmployeeController.class).all()).withRel("employees")))
+                linkTo(methodOn(EmployeeController.class).all()).withRel("employees")))
             .collect(Collectors.toList());
 
     // CollectionModel<> is also from Sprng HATEOAS; encapsulating a
