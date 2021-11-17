@@ -24,11 +24,16 @@ public class EmployeeController {
 
   private final EmployeeRepository repository;
 
+
+  // adding the assembler to change Employee objects to EntityModel<Employee> objects
+  private final EmployeeModelAssembler assembler;
+
   /**
    * non-default constructor
    */
-  EmployeeController(EmployeeRepository repository) {
+  EmployeeController(EmployeeRepository repository, EmployeeModelAssembler assembler) {
     this.repository = repository;
+    this.assembler = assembler;
   }
 
   // the CRUD functions
@@ -44,12 +49,15 @@ public class EmployeeController {
     // get a list of employees
     // create a http link for the aggregate root
     // original version was repository.findAll()
-    List<EntityModel<Employee>> employees =
+ /*   List<EntityModel<Employee>> employees =
         repository.findAll().stream().map(employee -> EntityModel.of(employee,
                 linkTo(methodOn(EmployeeController.class).all()).withRel("employees")))
             .collect(Collectors.toList());
+*/
 
-    // CollectionModel<> is also from Sprng HATEOAS; encapsulating a
+    // now using HATEOS library to create hypermedia-driven endpoints
+    List<EntityModel<Employee>> employees = repository.findAll()
+    // CollectionModel<> is also from Spring HATEOAS; encapsulating a
     //collection of resources instead of a single resource. Can also include links.
     return CollectionModel.of(employees,
         linkTo(methodOn(EmployeeController.class).all()).withSelfRel());
@@ -84,9 +92,9 @@ public class EmployeeController {
     // one() method and flag it as a self link
     // the linkTo().withRel("employees") tells Spring HATEOAS to build a link to the
     // aggregate root, all() of the EmployeeController class and call it 'employees'
-    return EntityModel.of(employee,
-        linkTo(methodOn(EmployeeController.class).one(id)).withSelfRel(),
-        linkTo(methodOn(EmployeeController.class).all()).withRel("employees"));
+
+    // moved code to assembler
+    return assembler.toModel(employee);
   }
 
   /**
